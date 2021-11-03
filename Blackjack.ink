@@ -1,6 +1,7 @@
 VAR setting = ""
 VAR character = ""
 VAR story_start = ""
+VAR setting_related_choices = ""
 VAR story_conflict = ""
 VAR story_end = ""
 VAR win = 0
@@ -158,6 +159,69 @@ You have four cards in your hand and you chose:
 
 +[Round 4]-> Round4
 
++[Round 4_1] -> Round4_1
+
+//setting_related_choices
+== Round4_1
+// Fourth round k, 8 available
+You Played the Blackjack. 
+{~You lost. ->Lost4_1|You won. ->Won4_1}
+
+== Lost4_1
+~ setting_related_choices = "{~A|J|3|6|}"
+
+Your opponent has won. He has two cards in his hand and he has chosen: {setting_related_choices}.
+-> next4_1
+
+== Won4_1
+~win++
+You have four cards in your hand and you chose:
+
+* A {set_setting_related_choices("A")} 
+->next4_1
+* J {set_setting_related_choices("J")} 
+->next4_1
+* 3 {set_setting_related_choices(3)} 
+->next4_1
+* 6 {set_setting_related_choices(6)} 
+->next4_1
+
+
+==function set_setting_related_choices(x)
+~ setting_related_choices = x
+
+== next4_1
+// Narrative transition related to the selected setting
+{ character:
+- 2: 	You are a doctor in your late thirties. <>
+    { story_start:
+        - 4: 	 You were born in X, the youngest of Y siblings. 
+        - 5: 	You were born in Y, in a family of Z.
+        - 7:    You were born in New York, a secret bastard child of Donald Trump.
+        - "A": 	You were born in A.
+    }
+- 10: 	You are a lift operator. <>
+    { story_start:
+        - 4: 	 You were born in X, the youngest of Y siblings.
+        - 5: 	You were born in Y, in a family of Z.
+        - 7:    You were born in New York, a secret bastard child of Donald Trump.
+        - "A": 	You were born in A.
+    }
+- 7: You are a NCSU student <>
+    { story_start:
+        - 4: 	 You were born in X, the youngest of Y siblings.
+        - 5: 	You were born in Y, in a family of Z.
+        - 7:    You were born in New York, a secret bastard child of Donald Trump.
+        - "A": 	You were born in A.
+    }
+}
+{ setting:
+- "A": 	You developed a gambling addiction.
+- "J": 	The screen is playing Star Wars: The Phantom Menace.
+- 3: 	There was a terrorist attack in the amusement park.
+- 6: You ordered a glass of ice American and drank with relish.
+}
++[Round 5]-> Round5
 
 == Round4
 // Fourth round k, 8 available
