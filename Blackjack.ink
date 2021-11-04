@@ -16,13 +16,15 @@ VAR win = 0
 
 // "Play Blackjack with a man wearing a Gucci basketball hat in the Casino." 
 
-You are playing Blackjack with a man wearing a Gucci basketball hat.
+// You are playing Blackjack with a man wearing a Gucci basketball hat.
 
-You don't remember who you are and why you are here.
+You wake up.
+You don't remember who you are and where you are! But, there is a man nearby wearing a Gucci basketball hat holding a bunch of cards.
+The man offers you to play Blackjack.
+As you play the game of Blackjack, you will retrieve your memory but with a "twist". Your memory will be altered by the virtue of how you play the game.
+As you start, you have four cards: A, J, 3, and 6.
 
-As you play the Blackjack you will retrieve your memory.
-
-+[Start] -> Round1
++[Discover your memory] -> Round1
 == Casino
 You entered a gorgeous casino.
 
@@ -30,17 +32,18 @@ You entered a gorgeous casino.
 == Round1
 // First round A, J, 3, 6 available
 
-{~You lost the first round of Blackjack. ->Lost1|You won the first round of Blackjack! ->Won1}
+{~Oh no! You lost the first round of Blackjack. ->Lost1|You won the first round of Blackjack! ->Won1}
 
 == Lost1
 ~ setting = "{~A|J|3|6}"
 
-Your opponent has won. He picked {setting} from your cards.
+Your opponent has won, which means he gets to chose your memory. He picked {setting} from your cards.
 -> next1
 
 == Won1
 ~win++
-You have four cards in your hand and you chose:
+You have four cards in your hand. 
+Chose one to find out where you are.
 
 * A {set_setting("A")} 
 ->next1
@@ -78,7 +81,7 @@ How did you get here?
 == Lost2
 ~ character = "{~2|10|7}"
 
-Your opponent has won. He picked {character} from your cards.
+Your opponent has won, which means he gets to chose your memory. He picked {character} from your cards.
 -> next2
 
 == Won2
@@ -99,7 +102,7 @@ You have three cards in your hand and you chose:
 { character:
 - 2: 	You are a doctor in your late thirties.
 - 10: 	You are a lift operator.
-- 7: You are a NCSU student
+- 7: You are an NCSU student.
 }
 
 +[Round 3]-> Round3
@@ -112,7 +115,7 @@ You have three cards in your hand and you chose:
 == Lost3
 ~ story_start = "{~4|5|7|A}"
 
-Your opponent has won. He picked {story_start} from your cards.
+Your opponent has won, which means he gets to chose your memory. He picked {story_start} from your cards.
 -> next3
 == Won3
 ~win++
@@ -134,43 +137,42 @@ You have four cards in your hand and you chose:
 { character:
 - 2: 	You are a doctor in your late thirties. <>
     { story_start:
-        - 4: 	 You were born in X, the youngest of Y siblings.
-        - 5: 	You were born in Y, in a family of Z.
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
         - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in A.
+        - "A": 	You were born in Brazil.
     }
 - 10: 	You are a lift operator. <>
     { story_start:
-        - 4: 	 You were born in X, the youngest of Y siblings.
-        - 5: 	You were born in Y, in a family of Z.
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
         - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in A.
+        - "A": 	You were born in Brazil.
     }
-- 7: You are a NCSU student <>
+- 7: You are an NCSU student. <>
     { story_start:
-        - 4: 	 You were born in X, the youngest of Y siblings.
-        - 5: 	You were born in Y, in a family of Z.
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
         - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in A.
+        - "A": 	You were born in Brazil.
     }
 }
 
 
 
-+[Round 4]-> Round4
+//+[Round 4]-> Round4
 
-+[Round 4_1] -> Round4_1
++[Round 4] -> Round4_1
 
 //setting_related_choices
 == Round4_1
 // Fourth round k, 8 available
-You Played the Blackjack. 
-{~You lost. ->Lost4_1|You won. ->Won4_1}
+{~You lost this round, which means your opoonents gets to chose your memory! ->Lost4_1|You won this round! ->Won4_1}
 
 == Lost4_1
 ~ setting_related_choices = "{~A|J|3|6|}"
 
-Your opponent has won. He has two cards in his hand and he has chosen: {setting_related_choices}.
+He has two cards in his hand and he has chosen: {setting_related_choices}.
 -> next4_1
 
 == Won4_1
@@ -195,24 +197,24 @@ You have four cards in your hand and you chose:
 { character:
 - 2: 	You are a doctor in your late thirties. <>
     { story_start:
-        - 4: 	 You were born in X, the youngest of Y siblings. 
-        - 5: 	You were born in Y, in a family of Z.
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
         - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in A.
+        - "A": 	You were born in Brazil.
     }
 - 10: 	You are a lift operator. <>
     { story_start:
-        - 4: 	 You were born in X, the youngest of Y siblings.
-        - 5: 	You were born in Y, in a family of Z.
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
         - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in A.
+        - "A": You were born in Brazil.
     }
-- 7: You are a NCSU student <>
+- 7: You are an NCSU student. <>
     { story_start:
-        - 4: 	 You were born in X, the youngest of Y siblings.
-        - 5: 	You were born in Y, in a family of Z.
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
         - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in A.
+        - "A": 	You were born in Brazil.
     }
 }
 { setting:
@@ -225,14 +227,13 @@ You have four cards in your hand and you chose:
 
 == Round4
 // Fourth round k, 8 available
-You Played the Blackjack. 
 
 {~You lost. ->Lost4|You won. ->Won4}
 
 == Lost4
 ~ story_conflict = "{~K|8}"
 
-Your opponent has won. He has two cards in his hand and he has chosen: {story_conflict}.
+Your opponent has won, which means he gets to chose your memory. He has two cards in his hand and he has chosen: {story_conflict}.
 -> next4
 == Won4
 ~win++
@@ -251,44 +252,82 @@ You have two cards in your hand and you chose:
 
 
 == Round5
+Congratualations! You now have your full memory!
+
+{ character:
+- 2: 	You are a doctor in your late thirties. <>
+    { story_start:
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
+        - 7:    You were born in New York, a secret bastard child of Donald Trump.
+        - "A": 	You were born in Brazil.
+    }
+- 10: 	You are a lift operator. <>
+    { story_start:
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
+        - 7:    You were born in New York, a secret bastard child of Donald Trump.
+        - "A": You were born in Brazil.
+    }
+- 7: You are an NCSU student. <>
+    { story_start:
+        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
+        - 5: 	You were born in Egypt, in a family of 6.
+        - 7:    You were born in New York, a secret bastard child of Donald Trump.
+        - "A": 	You were born in Brazil.
+    }
+}
+{ setting:
+- "A": 	You developed a gambling addiction.
+- "J": 	The screen is playing Star Wars: The Phantom Menace.
+- 3: 	There was a terrorist attack in the amusement park.
+- 6: You ordered a glass of ice American and drank with relish.
+}
+{ setting:
+- "A": 	You are in a casino.
+- "J": 	You are in a movie theatre.
+- 3: 	You are in an amusement park.
+- 6: You are in a coffee shop.
+}
+
 // Fifth round 2, 4, A, Q available
-You Played the Blackjack. 
+//You Played the Blackjack. 
 
-{~You lost. ->Lost5|You won. ->Won5}
+//{~You lost. ->Lost5|You won. ->Won5}
 
-== Lost5
-~ story_end = "{~2|4|A|Q}"
+//== Lost5
+//~ story_end = "{~2|4|A|Q}"
 
-Your opponent has won. He has four cards in his hand and he has chosen: {story_end}.
--> next5
+//Your opponent has won, which means he gets to chose your memory. He has four cards in his hand and he has chosen: {story_end}.
+//-> next5
 
-== Won5
-~win++
-You have four cards in your hand and you chose:
+//== Won5
+//~win++
+//You have four cards in your hand and you chose:
 
-* 2 {set_end(2)} 
-->next5
-* 4 {set_end(4)} 
-->next5
-* A {set_end("A")} 
-->next5
-* Q {set_end("Q")} 
-->next5
+//* 2 {set_end(2)} 
+//->next5
+//* 4 {set_end(4)} 
+//->next5
+//* A {set_end("A")} 
+//->next5
+//* Q {set_end("Q")} 
+//->next5
 
-==function set_end(x)
-~ story_end = x
+//==function set_end(x)
+//~ story_end = x
 
-== next5
-+[End] -> End
+//== next5
+//+[End] -> End
 
-== End
-You retrieve your memory:
+//== End
+//You retrieve your memory:
 
-{setting}
-{character}
-{story_start}
-{story_conflict}
-{story_end}
+//{setting}
+//{character}
+//{story_start}
+//{story_conflict}
+//{story_end}
 
 -> END
 
