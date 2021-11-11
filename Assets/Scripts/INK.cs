@@ -51,7 +51,7 @@ public class INK : MonoBehaviour
 				Choice choice = story.currentChoices[i];
 				Button button = CreateChoiceView(choice.text.Trim());
 
-				//Debug.Log(choice.text);
+				//Debug.Log(button.ToString());
 				// Tell the button what to do when we press it
 				button.onClick.AddListener(delegate {
 					OnClickChoiceButton(choice);
