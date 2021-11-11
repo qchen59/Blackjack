@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
             mainText.gameObject.SetActive(true);
             dealerScoreText.gameObject.SetActive(true);
             hideCard.GetComponent<Renderer>().enabled = false;
-            cashText.text = "$" + playerScript.GetMoney().ToString();
+            //cashText.text = "$" + playerScript.GetMoney().ToString();
             standClicks = 0;
         }
     }
