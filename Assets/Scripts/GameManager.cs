@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public Button hitBtn;
     public Button standBtn;
 
+
+    public bool playerWin = false;
+    public bool dealerWin = false;
+
     private int standClicks = 0;
 
     // Access the player and dealer's script
@@ -27,12 +31,31 @@ public class GameManager : MonoBehaviour
     // Card hiding dealer's 2nd card
     public GameObject hideCard;
 
+    // Cards
+    public Sprite[] playerCards;
+    public Sprite[] dealerCards;
+
+
+
     void Start()
     {
         // Add on click listeners to the buttons
         dealBtn.onClick.AddListener(() => DealClicked());
         hitBtn.onClick.AddListener(() => HitClicked());
         standBtn.onClick.AddListener(() => StandClicked());
+
+        // Adjust buttons visibility
+        dealBtn.gameObject.SetActive(true);
+        hitBtn.gameObject.SetActive(false);
+        standBtn.gameObject.SetActive(false);
+
+
+    }
+
+    // Select card when player win
+    void SelectCard()
+    {
+
     }
 
     private void DealClicked()
@@ -100,7 +123,7 @@ public class GameManager : MonoBehaviour
         // If stand has been clicked less than twice, no 21s or busts, quit function
         if (standClicks < 2 && !playerBust && !dealerBust && !player21 && !dealer21) return;
         bool roundOver = true;
-        // All bust, bets returned
+        // All bust
         if (playerBust && dealerBust)
         {
             mainText.text = "All Bust";
@@ -108,17 +131,21 @@ public class GameManager : MonoBehaviour
         // if player busts, dealer didnt, or if dealer has more points, dealer wins
         else if (playerBust || (!dealerBust && dealerScript.handValue > playerScript.handValue))
         {
-            mainText.text = "Dealer wins!";
+            dealerWin = true;
+            mainText.text = "Dealer wins! Dealer will select a card for you.";
+            playerScript.RandomSelect();
         }
         // if dealer busts, player didnt, or player has more points, player wins
         else if (dealerBust || playerScript.handValue > dealerScript.handValue)
         {
-            mainText.text = "You win!";
+            //playerScript.updateStatus();
+            playerWin = true;
+            mainText.text = "You win! Please select a card.";
         }
         //Check for tie, return bets
         else if (playerScript.handValue == dealerScript.handValue)
         {
-            mainText.text = "Push: Bets returned";
+            mainText.text = "Push";
         }
         else
         {
@@ -133,7 +160,6 @@ public class GameManager : MonoBehaviour
             mainText.gameObject.SetActive(true);
             dealerScoreText.gameObject.SetActive(true);
             hideCard.GetComponent<Renderer>().enabled = false;
-            //cashText.text = "$" + playerScript.GetMoney().ToString();
             standClicks = 0;
         }
     }

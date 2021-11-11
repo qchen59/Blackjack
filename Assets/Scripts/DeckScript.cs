@@ -9,6 +9,7 @@ public class DeckScript : MonoBehaviour
     int[] cardValues = new int[53];
     int currentIndex = 0;
 
+
     void Start()
     {
         GetCardValues();
@@ -25,7 +26,7 @@ public class DeckScript : MonoBehaviour
             num %= 13;
             // if there is a remainder after x/13, then remainder
             // is used as the value, unless over 10, the use 10
-            if(num > 10 || num == 0)
+            if (num > 10 || num == 0)
             {
                 num = 10;
             }
@@ -33,10 +34,11 @@ public class DeckScript : MonoBehaviour
         }
     }
 
+
     public void Shuffle()
     {
         // Standard array data swapping technique
-        for(int i = cardSprites.Length -1; i > 0; --i)
+        for (int i = cardSprites.Length - 1; i > 0; --i)
         {
             int j = Mathf.FloorToInt(Random.Range(0.0f, 1.0f) * cardSprites.Length - 1) + 1;
             Sprite face = cardSprites[i];
@@ -58,11 +60,6 @@ public class DeckScript : MonoBehaviour
         return cardScript.GetValueOfCard();
     }
 
-    // Select card when player win
-    void SelectCard()
-    {
-
-    }
 
     public Sprite GetCardBack()
     {

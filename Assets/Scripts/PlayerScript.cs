@@ -27,6 +27,13 @@ public class PlayerScript : MonoBehaviour
         GetCard();
     }
 
+    public void RandomSelect()
+    {
+        System.Random rnd = new System.Random();
+        int idx = rnd.Next(0, cardIndex);
+        hand[idx].GetComponent<CardScript>().DisplayStory();
+    }
+
     // Add a hand to the player/dealer's hand
     public int GetCard()
     {
