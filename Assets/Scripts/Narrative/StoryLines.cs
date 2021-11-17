@@ -12,35 +12,40 @@ public class StoryLines : MonoBehaviour
     public Button keep;
     public int round = 0;
 
+    public string temp = "";
+
     public int storyLine = 0;
     public int cardValue = 0;
-    string[] green1Who = new string[]{"Joshua", "Karen", "Matthew", "John"};
-    string[] green1How1= new string[] { "FATHER", "BROTHER", "AUNT", "MOTHER" };
-    string[] green1How2 = new string[] { "Yo, snap out of it!", "Pay Attention!", "Hey!", "Wake up!" };
+    string[] green1Who = new string[]{"Joshua", "Karen", "Matthew", "John", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    string[] green1How1= new string[] { "FATHER", "BROTHER", "AUNT", "MOTHER", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    string[] green1How2 = new string[] { "Yo, snap out of it!", "Pay Attention!", "Hey!", "Wake up!", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
-    string[] green2Who = new string[] { "scared", "concerned", "apprehensive", "happy" };
-    string[] green2How1 = new string[] { "Cancun", "Egypt", "Florida", "Bahamas" };
-    string[] green2How2 = new string[] { "Spouse", "Secret Lover", "Husband", "Ex-Husband" };
+    string[] green2Who = new string[] { "scared", "concerned", "apprehensive", "happy", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    string[] green2How1 = new string[] { "Cancun", "Egypt", "Florida", "Bahamas", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    string[] green2How2 = new string[] { "Spouse", "Secret Lover", "Husband", "Ex-Husband", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
-    string[] green3Who = new string[] { "Jack", "Mya", "Sam", "Paul" };
-    string[] green3How1 = new string[] { "What are you talking about", "What do you have amnesia or something", "What are you saying", "Are you serious" };
-    string[] green3How2 = new string[] { "She hasn't leg go from the hug", "She won't let go of you", "The grip from her hug gets tighter", "Her embrace tightens" };
+    string[] green3Who = new string[] { "Jack", "Mya", "Sam", "Paul", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    string[] green3How1 = new string[] { "What are you talking about", "What do you have amnesia or something", "What are you saying", "Are you serious", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    string[] green3How2 = new string[] { "She hasn't leg go from the hug", "She won't let go of you", "The grip from her hug gets tighter", "Her embrace tightens", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
     public int getStoryLine()
     {
         System.Random rand = new System.Random();
-        storyLine = rand.Next(1, 3);
+        storyLine = rand.Next(1, 4);
         return storyLine;
     }
     // Start is called before the first frame update
     void Start()
     {
+        print("the round in narrative is" + round);
+        print("card Value is " + cardValue);
         if(round == 1)
         {
 
             if (getStoryLine() == 1)
             {
-                mainText.text = "The man says to you \" Is all the money there " + green1Who[cardValue] + "\"?";
+                temp = "The man says to you \" Is all the money there " + green1Who[cardValue] + "\"?";
+                mainText.text = temp;
                 enableLeftRight("Yes", "Im not sure");
 
             }

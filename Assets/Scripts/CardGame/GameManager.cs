@@ -15,7 +15,11 @@ public class GameManager : MonoBehaviour
     public Text popUp;
     public Button confirm;
 
+    public Camera mainCamera;
+    public Camera NarrativeCam;
+
     public int round = 1;
+    public int cardValue = 0;
 
     public bool playerWin = false;
     public bool dealerWin = false;
@@ -63,18 +67,13 @@ public class GameManager : MonoBehaviour
 
     private void confirmClicked()
     {
-        narrative.GetComponent<Narrative>().
-        
-        
-
-        SceneManager.LoadScene("Narrative");
-
-    }
-    // Select card when player win
-    void SelectCard()
-    {
+        narrative.GetComponent<StoryLines>().round = this.round;
+        narrative.GetComponent<StoryLines>().cardValue = this.cardValue;
+        mainCamera.gameObject.SetActive(false);
+        NarrativeCam.gameObject.SetActive(true);
 
     }
+
 
     private void DealClicked()
     {
@@ -153,12 +152,10 @@ public class GameManager : MonoBehaviour
         else if (playerBust || (!dealerBust && dealerScript.handValue > playerScript.handValue))
         {
             dealerWin = true;
+            confirm.gameObject.SetActive(true);
+
             mainText.text = "Dealer wins! Dealer will select a card for you.";
 
-            hitBtn.gameObject.SetActive(false);
-            standBtn.gameObject.SetActive(false);
-            dealBtn.gameObject.SetActive(false);
-            confirm.gameObject.SetActive(true);
 
             playerScript.RandomSelect();
         }
@@ -167,7 +164,11 @@ public class GameManager : MonoBehaviour
         {
             //playerScript.updateStatus();
             playerWin = true;
+            hitBtn.gameObject.SetActive(false);
+            standBtn.gameObject.SetActive(false);
+            dealBtn.gameObject.SetActive(false);
             mainText.text = "You win! Please select a card.";
+
         }
         //Check for tie, return bets
         else if (playerScript.handValue == dealerScript.handValue)
@@ -179,6 +180,17 @@ public class GameManager : MonoBehaviour
             roundOver = false;
         }
         // Set ui up for next move / hand / turn
+        if (dealerWin)
+        {
+            hitBtn.gameObject.SetActive(false);
+            standBtn.gameObject.SetActive(false);
+            dealBtn.gameObject.SetActive(false);
+            mainText.gameObject.SetActive(true);
+            dealerScoreText.gameObject.SetActive(true);
+            hideCard.GetComponent<Renderer>().enabled = false;
+            standClicks = 0;
+        }
+        else
         if (roundOver)
         {
             round++;

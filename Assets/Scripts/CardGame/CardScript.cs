@@ -23,6 +23,7 @@ public class CardScript : MonoBehaviour
 
     bool selected = false;
 
+    public GameObject narrative;
 
 
 
@@ -108,6 +109,8 @@ public class CardScript : MonoBehaviour
     {
         if (GameObject.Find("GameManager").GetComponent<GameManager>().playerWin == true)
         {
+            //narrative.GetComponent<StoryLines>().cardValue = this.value;
+            GameObject.Find("GameManager").GetComponent<GameManager>().cardValue = this.value;
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
