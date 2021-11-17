@@ -14,6 +14,7 @@ public class StartGame : MonoBehaviour
     public Text btnText;
     public bool start = false;
     public bool start2 = false;
+
     //public bool clicked = false;
     public int click = -1;
     public GameObject title;
@@ -80,7 +81,9 @@ public class StartGame : MonoBehaviour
         }else if (start2 && click == 4)
         {
             NarativeCanvas.gameObject.SetActive(false);
-        }
+            SceneManager.LoadScene(1);
+          
+    }
         //clicked = true;
 
 

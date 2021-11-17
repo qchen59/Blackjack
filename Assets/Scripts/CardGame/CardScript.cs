@@ -83,7 +83,7 @@ public class CardScript : MonoBehaviour
 
 
         SetStoryScript("This is story script " + value);
-        Debug.Log(round);
+        //Debug.Log(round);
        // bigRound++;
     }
 
@@ -111,6 +111,8 @@ public class CardScript : MonoBehaviour
         {
             //narrative.GetComponent<StoryLines>().cardValue = this.value;
             GameObject.Find("GameManager").GetComponent<GameManager>().cardValue = this.value;
+            //narrative.GetComponent<StoryLines>().playerWin = true;
+            print("The narrative player win in card script");
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
@@ -126,8 +128,8 @@ public class CardScript : MonoBehaviour
 
     public void DisplayStory()
     {
-        print(storyScript);
-        print(value);
+/*        print(storyScript);
+        print(value);*/
         scriptText.gameObject.SetActive(true);
         scriptText.text = storyScript;
     }

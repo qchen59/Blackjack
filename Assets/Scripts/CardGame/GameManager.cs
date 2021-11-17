@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public Button standBtn;
     public Text popUp;
     public Button confirm;
-
+    
     public Camera mainCamera;
     public Camera NarrativeCam;
 
@@ -38,13 +38,13 @@ public class GameManager : MonoBehaviour
 
     // Card hiding dealer's 2nd card
     public GameObject hideCard;
-
+    
     // Cards
     public Sprite[] playerCards;
     public Sprite[] dealerCards;
 
     public GameObject narrative;
-
+    public GameObject roundOb;
     void Start()
     {
         // Add on click listeners to the buttons
@@ -67,13 +67,15 @@ public class GameManager : MonoBehaviour
 
     private void confirmClicked()
     {
-        narrative.GetComponent<StoryLines>().round = this.round;
+        
+        narrative.GetComponent<StoryLines>().round = roundOb.GetComponent<RoundNumber>().getRound();
         narrative.GetComponent<StoryLines>().cardValue = this.cardValue;
-        narrative.GetComponent<StoryLines>().dealWin = this.dealerWin;
-        narrative.GetComponent<StoryLines>().playerWin = this.playerWin;
+        //narrative.GetComponent<StoryLines>().dealWin = this.dealerWin;
+        //narrative.GetComponent<StoryLines>().playerWin = this.playerWin;
         mainCamera.gameObject.SetActive(false);
         NarrativeCam.gameObject.SetActive(true);
-
+        confirm.gameObject.SetActive(false);
+        narrative.GetComponent<StoryLines>().start();
     }
 
 
@@ -169,6 +171,10 @@ public class GameManager : MonoBehaviour
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
+            //confirm.gameObject.SetActive(true);
+            //print("Is player win? " + playerWin);
+            narrative.GetComponent<StoryLines>().setPlayWin();
+            //print("Is player win? After " + playerWin);
             mainText.text = "You win! Please select a card.";
 
         }
@@ -184,6 +190,8 @@ public class GameManager : MonoBehaviour
         // Set ui up for next move / hand / turn
         if (dealerWin)
         {
+            roundOb.GetComponent<RoundNumber>().roundUp();
+
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
@@ -194,6 +202,9 @@ public class GameManager : MonoBehaviour
         }else
         if (playerWin)
         {
+
+            roundOb.GetComponent<RoundNumber>().roundUp();
+
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
@@ -204,7 +215,7 @@ public class GameManager : MonoBehaviour
         }else
         if (roundOver)
         {
-            round++;
+            roundOb.GetComponent<RoundNumber>().roundUp();
             //print("the round" + round);
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);

@@ -513,7 +513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1093233300
 RectTransform:
   m_ObjectHideFlags: 0
@@ -820,6 +820,7 @@ MonoBehaviour:
   btnText: {fileID: 1755772635}
   start: 0
   start2: 0
+  start3: 0
   click: -1
   title: {fileID: 935690115}
   logo: {fileID: 1397973579}
