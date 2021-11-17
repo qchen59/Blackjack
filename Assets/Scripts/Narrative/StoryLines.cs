@@ -11,6 +11,8 @@ public class StoryLines : MonoBehaviour
     public Button right;
     public Button keep;
     public int round = 0;
+    public bool playerWin;
+    public bool dealWin;
 
     public string temp = "";
 
@@ -36,20 +38,24 @@ public class StoryLines : MonoBehaviour
     }
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         print("the round in narrative is" + round);
         print("card Value is " + cardValue);
-        if(round == 1)
-        {
+        left.onClick.AddListener(leftClicked);
+        right.onClick.AddListener(rightClicked);
 
-            if (getStoryLine() == 1)
+        if (round == 1)
+        {
+            getStoryLine();
+
+            if (storyLine == 1)
             {
                 temp = "The man says to you \" Is all the money there " + green1Who[cardValue] + "\"?";
                 mainText.text = temp;
                 enableLeftRight("Yes", "Im not sure");
 
             }
-            else if (getStoryLine() == 2)
+            else if (storyLine == 2)
             {
                 mainText.text = "In a somewhat  " + green2Who[cardValue] + "tone the man says to you \" Is it over? Are you ok\"?";
                 enableLeftRight("Yes", "I can't remember anything");
@@ -97,6 +103,102 @@ public class StoryLines : MonoBehaviour
 
     }
 
+    public void rightClicked()
+    {
+        if (round == 1)
+        {
+            if (storyLine == 1)
+            {
+                if (playerWin)
+                {
+                    mainText.text = "You're a middle school math teacher, you can't count?\n\"Act normal, that guy over there is really a cop\"\n\"Well I trust the source who gave you the money so it should all be there\" ";
+                }
+                else
+                {
+                    mainText.text = "You're ********, you can't count?\n\"Act normal, that guy over there is really a cop\"\n\"Well I trust the source who gave you the money so it should all be there\" ";
+
+                }
+            }
+            else if (storyLine == 2)
+            {
+                if (playerWin)
+                {
+                    mainText.text = "\"Oh no it was the worst outcome wasn't it\"\n\"Do I look familiar to you, Amy?\"\n\"Being a software engineer was your entire world Ron, and you gave it all up\"";
+                }
+                else
+                {
+                    mainText.text = "\"Oh no it was the worst outcome wasn't it\"\n\"Do I look familiar to you, ********?\"\n\"Being a software engineer was your entire world Ron, and you gave it all up\"";
+
+                }
+            }
+            else if (storyLine == 3)
+            {
+                if (playerWin)
+                {
+                    mainText.text = "\"As I stated before, I cannot answer that question " + green3Who[cardValue] + "\"\n\"I say this for the safety of your wife and children\"\nMy wife and children?\n\"Yes, don't worry we have them already and they are safe\"";
+                }
+                else
+                {
+                    mainText.text = "\"As I stated before, I cannot answer that question " + green3Who[cardValue] + "\"\n\"I say this for the safety of your ********\"\nMy ********?\n\"Yes, don't worry we have them already and they are safe\"";
+
+                }
+            }
+
+        }
+        left.gameObject.SetActive(false); 
+        right.gameObject.SetActive(false);
+        keep.gameObject.SetActive(true);
+    }
+
+
+
+    public void leftClicked()
+    {
+        if(round == 1)
+        {
+            if(storyLine == 1)
+            {
+                if (playerWin)
+                {
+                    mainText.text = "Great, I can't believe you're paying this much for this. \nAct cool, remember there's, cops, all around these places. \nI've been told you're just a middle school teacher from a small town in Texas, how did you get this kind of money ? ";
+                }
+                else
+                {
+                    mainText.text = "Great, I can't believe you're paying this much for this. \nAct cool, remember there's, cops, all around these places. \nI've been told you're just a ******* from a small town in Texas, how did you get this kind of money ? ";
+
+                }
+            }else if(storyLine == 2)
+            {
+                if (playerWin)
+                {
+                    mainText.text = "\"You don't have to lie to protect me\"\n\"But why would you do such a stupid thing when you have a family\" Your kids were worried sick.\n\"Being a software engineer was your entire world Amy, and you gave it all up\"";
+                }
+                else
+                {
+                    mainText.text = "******** \"But why would you do such a stupid thing when you have a family\" Your kids were worried sick.\n\"Being a software engineer was your entire world Amy, and you gave it all up\"";
+
+                }
+            }
+            else if(storyLine == 3)
+            {
+                if (playerWin)
+                {
+                    mainText.text = "\"Great " + green3Who[cardValue] + ", in 10 minutes get up from this table and head outside to the back alley\"\n\"In the meantime, we can play a few more rounds of BlackJack until the van is ready with your family\"";
+                }
+                else
+                {
+                    mainText.text = "\"Great " + green3Who[cardValue] + ", in 10 minutes get up from this table and head outside to the ********\"\n\"In the meantime, we can play a few more rounds of BlackJack until the van is ready with your family\"";
+
+                }
+            }
+
+        }
+        /*        mainCamera.gameObject.SetActive(false);
+                NarrativeCam.gameObject.SetActive(true);*/
+        left.gameObject.SetActive(false);
+        right.gameObject.SetActive(false);
+        keep.gameObject.SetActive(true);
+    }
     // Update is called once per frame
     void Update()
     {

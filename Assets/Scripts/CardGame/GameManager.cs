@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
     {
         narrative.GetComponent<StoryLines>().round = this.round;
         narrative.GetComponent<StoryLines>().cardValue = this.cardValue;
+        narrative.GetComponent<StoryLines>().dealWin = this.dealerWin;
+        narrative.GetComponent<StoryLines>().playerWin = this.playerWin;
         mainCamera.gameObject.SetActive(false);
         NarrativeCam.gameObject.SetActive(true);
 
@@ -189,12 +191,21 @@ public class GameManager : MonoBehaviour
             dealerScoreText.gameObject.SetActive(true);
             hideCard.GetComponent<Renderer>().enabled = false;
             standClicks = 0;
-        }
-        else
+        }else
+        if (playerWin)
+        {
+            hitBtn.gameObject.SetActive(false);
+            standBtn.gameObject.SetActive(false);
+            dealBtn.gameObject.SetActive(false);
+            mainText.gameObject.SetActive(true);
+            dealerScoreText.gameObject.SetActive(true);
+            hideCard.GetComponent<Renderer>().enabled = false;
+            standClicks = 0;
+        }else
         if (roundOver)
         {
             round++;
-            print("the round" + round);
+            //print("the round" + round);
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(true);
