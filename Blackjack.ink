@@ -19,54 +19,74 @@ VAR win = 0
 // You are playing Blackjack with a man wearing a Gucci basketball hat.
 
 You wake up.
-You don't remember who you are and where you are! But, there is a man nearby wearing a Gucci basketball hat holding a bunch of cards.
-The man offers you to play Blackjack.
-As you play the game of Blackjack, you will retrieve your memory but with a "twist". Your memory will be altered by the virtue of how you play the game.
-As you start, you have four cards: A, J, 3, and 6.
+You don't remember who you are and where you are! But, there is a man nearby wearing a Gucci basketball hat holding a bunch of trivia cards.
 
-+[Discover your memory] -> Round1
-== Casino
-You entered a gorgeous casino.
++[Ask the man where you are.] -> askwhere
++[Ask the man who he is.] -> askwho
+== askwho
+"I am an evil genius, holding all your memory! I can also ALTER your PAST!"
++[How?!] -> askhow
+
+== askwhere
+"Hehe, I won't tell you that. 
+But I will tell you that I am an evil genius, holding all your memory. I can also ALTER your PAST!"
++[How?!] -> askhow
+
+== askhow
+"Good question!", says the man as he shows you the trivia cards.
+"Answer the questions on these cards for me. If you get them right, you will be able to alter your past in any way you like!"
+"If you get them wrong, I will choose your past for you >:D "
+
++[Play the game] -> Round1
++[Ignore the offer] -> Ignore
+
+== Ignore
+The man leaves. You stay at the same place for another eighty years, never learning about your past, and never able to leave the room, before eventually dying. 
+-> END
+
 
 +[Round 1] -> Round1
 == Round1
-// First round A, J, 3, 6 available
+"Okay, good luck!", says the man. "Here is your first question."
+"In which city were the 1992 Summer Olympics held?"
++[Atlanta] -> Lost1
++[Barcelona] -> Won1
++[Las Vegas] -> Lost1
++[Sydney] -> Lost1
 
-{~Oh no! You lost the first round of Blackjack. ->Lost1|You won the first round of Blackjack! ->Won1}
+//{~Oh no! You lost the first round of Blackjack. ->Lost1|You won the first round of Blackjack! ->Won1}
 
 == Lost1
 ~ setting = "{~A|J|3|6}"
-
-Your opponent has won, which means he gets to chose your memory. He picked {setting} from your cards.
--> next1
+\*Evil laugh*.
+"Incorrect answer! Now I get to choose one of your past memories."
+//Your opponent has won, which means he gets to chose your memory. He picked {setting} from your cards.
++[Check your past] -> next1
 
 == Won1
-~win++
-You have four cards in your hand. 
-Chose one to find out where you are.
+"Nice, I didn't expect you to be good at this", says the man in a \*passive agressive\* tone.
+"Go ahead and select from one of these memories, and they will be yours."
 
-* A {set_setting("A")} 
-->next1
-* J {set_setting("J")} 
-->next1
-* 3 {set_setting(3)} 
-->next1
-* 6 {set_setting(6)} 
-->next1
+The man recites four options.
+
++[You were born in Ecuador, the youngest of 13 siblings. ] {set_setting("A")} ->next1
++[You were born in Egypt, in a family of 6. ] {set_setting("J")} ->next1
++[You were born in New York, a secret bastard child of Donald Trump ] {set_setting(3)} ->next1
++[You were born in Brazil. ] {set_setting(6)} ->next1
 
 ==function set_setting(x)
 ~ setting = x
-
 
 == next1
 // Narrative transition related to the selected setting
 
 { setting:
-- "A": 	You are in a casino.
-- "J": 	You are in a movie theatre.
-- 3: 	You are in an amusement park.
-- 6: You are in a coffee shop.
+- "A": 	You were born in Ecuador, the youngest of 13 siblings.
+- "J": 	You were born in Egypt, in a family of 6.
+- 3: 	You were born in New York, a secret bastard child of Donald Trump.
+- 6: You were born in Brazil.
 }
+-> END 
 
 How did you get here?
 
@@ -330,6 +350,7 @@ Congratualations! You now have your full memory!
 //{story_end}
 
 -> END
+
 
 
 
