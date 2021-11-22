@@ -81,7 +81,7 @@ public class StartGame : MonoBehaviour
         }else if (start2 && click == 4)
         {
             NarativeCanvas.gameObject.SetActive(false);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Rules");
           
     }
         //clicked = true;

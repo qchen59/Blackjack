@@ -689,7 +689,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: CardGame
+          m_StringArgument: Rules
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1105635140
@@ -820,7 +820,6 @@ MonoBehaviour:
   btnText: {fileID: 1755772635}
   start: 0
   start2: 0
-  start3: 0
   click: -1
   title: {fileID: 935690115}
   logo: {fileID: 1397973579}
@@ -1333,8 +1332,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34, y: -44}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.00011742, y: -3.7}
+  m_SizeDelta: {x: 50, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1755772635
 MonoBehaviour:
@@ -1363,7 +1362,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
