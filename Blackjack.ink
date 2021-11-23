@@ -5,18 +5,62 @@ VAR setting_related_choices = ""
 VAR story_conflict = ""
 VAR story_end = ""
 VAR win = 0
+VAR story = ""
+VAR random_choice = 0 
+VAR born = ""
 
-// Sample framework without the blackjack game
-// In each round randomly determines the player's win or loss. The available cards selection is designated in this sample framework, which should be based on the winner's cards in the final version.
-// Two to Four different settings/characters/backstories are available in each round for this sample framework. Should support a total of thirteen settings/characters/backstories in the final version
-// Total of 5 rounds (provisional)
+VAR trivia_1 = "In which city were the 1992 Summer Olympics held?"
+VAR trivia_1_1 = "Atlanta"
+VAR trivia_1_2 = "Barcelona"    // Correct
+VAR trivia_1_3 = "Las Vegas"
+VAR trivia_1_4 = "Sydney"
 
-// You wake up on a unknown location. 
+VAR trivia_2 = "Approximately how many times does a smartphone user touch their screen per day?"
+VAR trivia_2_1 = "100"      
+VAR trivia_2_2 = "1150"    
+VAR trivia_2_3 = "2700"         // Correct
+VAR trivia_2_4 = "7000"
 
 
-// "Play Blackjack with a man wearing a Gucci basketball hat in the Casino." 
+VAR trivia_3 = "How many stars does the Australian flag have?"
+VAR trivia_3_1 = "4"      
+VAR trivia_3_2 = "5"            // Correct
+VAR trivia_3_3 = "7"         
+VAR trivia_3_4 = "9"
 
-// You are playing Blackjack with a man wearing a Gucci basketball hat.
+
+VAR trivia_4 = "How many seconds are in a day? YOU CAN'T USE A CALCULATOR!"
+VAR trivia_4_1 = "86400"      // Correct
+VAR trivia_4_2 = "84400"            
+VAR trivia_4_3 = "84600"         
+VAR trivia_4_4 = "64600"
+
+
+VAR trivia_5 = "In what year was McDonald's founded?"
+VAR trivia_5_1 = "1895"      
+VAR trivia_5_2 = "1915"            
+VAR trivia_5_3 = "1955"             // Correct
+VAR trivia_5_4 = "1965"
+
+VAR r1_1 = "You were born in Ecuador, the youngest of 13 siblings. "
+VAR r1_2 = "You were born in Egypt, in a family of 6. "
+VAR r1_3 = "You were born in New York, a secret bastard child of Donald Trump. "
+VAR r1_4 = "You were born in an airplane while it was flying above the Atlantic Ocean. "
+
+VAR r2_1 = "You are a doctor in your late thirties, with a specialization in colonoscopy. "
+VAR r2_2 = "You are a lift operator in a building in Manhattan. "
+VAR r2_3 = "You are bodyguard for Barack Obama. "
+VAR r2_4 = "You play a clown on a TV show, watched by millions around the world. "
+
+VAR r3_1 = "Your right hand was cut in an accident ten years ago. "
+VAR r3_2 = "You lost all your money in a gambling addiction five years ago. "
+VAR r3_3 = "You won a lottery worth 100 million dollars three years ago, but lost your sense of hearing the next day. "
+
+
+VAR r4_1 = "Unbeknownst to everyone, you have discovered the secret to immortality. "
+VAR r4_2 = "Unbeknownst to everyone, you have invented the true general artificial intelligence. "
+VAR r4_3 = "Unbeknownst to everyone, you have invented a time travelling machine that can take you to future. "
+
 
 You wake up.
 You don't remember who you are and where you are! But, there is a man nearby wearing a Gucci basketball hat holding a bunch of trivia cards.
@@ -24,15 +68,18 @@ You don't remember who you are and where you are! But, there is a man nearby wea
 +[Ask the man where you are.] -> askwhere
 +[Ask the man who he is.] -> askwho
 == askwho
+"----------------------"
 "I am an evil genius, holding all your memory! I can also ALTER your PAST!"
 +[How?!] -> askhow
 
 == askwhere
+"----------------------"
 "Hehe, I won't tell you that. 
 But I will tell you that I am an evil genius, holding all your memory. I can also ALTER your PAST!"
 +[How?!] -> askhow
 
 == askhow
+"----------------------"
 "Good question!", says the man as he shows you the trivia cards.
 "Answer the questions on these cards for me. If you get them right, you will be able to alter your past in any way you like!"
 "If you get them wrong, I will choose your past for you >:D "
@@ -40,315 +87,204 @@ But I will tell you that I am an evil genius, holding all your memory. I can als
 +[Play the game] -> Round1
 +[Ignore the offer] -> Ignore
 
+==function add_story(x)
+~ story = story + x
+
 == Ignore
+"----------------------"
 The man leaves. You stay at the same place for another eighty years, never learning about your past, and never able to leave the room, before eventually dying. 
 -> END
 
-
 +[Round 1] -> Round1
 == Round1
+"----------------------"
 "Okay, good luck!", says the man. "Here is your first question."
-"In which city were the 1992 Summer Olympics held?"
-+[Atlanta] -> Lost1
-+[Barcelona] -> Won1
-+[Las Vegas] -> Lost1
-+[Sydney] -> Lost1
-
-//{~Oh no! You lost the first round of Blackjack. ->Lost1|You won the first round of Blackjack! ->Won1}
+{trivia_1}
++[{trivia_1_1}] -> Lost1
++[{trivia_1_2}] -> Won1
++[{trivia_1_3}] -> Lost1
++[{trivia_1_4}] -> Lost1
 
 == Lost1
-~ setting = "{~A|J|3|6}"
+~ random_choice = RANDOM(1,4)
+{ random_choice:
+    - 1: {add_story(r1_1)}
+    - 2: {add_story(r1_2)}
+    - 3: {add_story(r1_3)}
+    - 4: {add_story(r1_4)}
+}
+"----------------------"
 \*Evil laugh*.
 "Incorrect answer! Now I get to choose one of your past memories."
-//Your opponent has won, which means he gets to chose your memory. He picked {setting} from your cards.
 +[Check your past] -> next1
 
 == Won1
+"----------------------"
 "Nice, I didn't expect you to be good at this", says the man in a \*passive agressive\* tone.
 "Go ahead and select from one of these memories, and they will be yours."
 
 The man recites four options.
 
-+[You were born in Ecuador, the youngest of 13 siblings. ] {set_setting("A")} ->next1
-+[You were born in Egypt, in a family of 6. ] {set_setting("J")} ->next1
-+[You were born in New York, a secret bastard child of Donald Trump ] {set_setting(3)} ->next1
-+[You were born in Brazil. ] {set_setting(6)} ->next1
-
-==function set_setting(x)
-~ setting = x
++[{r1_1}] {add_story(r1_1)} ->next1
++[{r1_2}] {add_story(r1_2)} ->next1
++[{r1_3}] {add_story(r1_3)} ->next1
++[{r1_4}] {add_story(r1_4)} ->next1
 
 == next1
-// Narrative transition related to the selected setting
+"----------------------"
+"Okay, here you go. Here is the past that you have created so far for yourself", says the man, and then starts reciting.
+\***
+{story}
+\***
 
-{ setting:
-- "A": 	You were born in Ecuador, the youngest of 13 siblings.
-- "J": 	You were born in Egypt, in a family of 6.
-- 3: 	You were born in New York, a secret bastard child of Donald Trump.
-- 6: You were born in Brazil.
-}
--> END 
+"Alright, get ready for the next question. It will decide who you are!", says the man.
 
-How did you get here?
 
-+[Keep playing to find out] -> Round2
++[Next question] -> Round2
 
 
 == Round2
-// Second round 2, 10, 7  available
-
-{~You lost the second round of Blackjack. ->Lost2|You won the second round of Blackjack. ->Won2}
+"----------------------"
+"Here is the question. Think it through!"
+{trivia_2}
++[{trivia_2_1}] -> Lost2
++[{trivia_2_2}] -> Lost2
++[{trivia_2_3}] -> Won2
++[{trivia_2_4}] -> Lost2
 
 == Lost2
-~ character = "{~2|10|7}"
-
-Your opponent has won, which means he gets to chose your memory. He picked {character} from your cards.
--> next2
+~ random_choice = RANDOM(1,4)
+{ random_choice:
+    - 1: {add_story(r2_1)}
+    - 2: {add_story(r2_2)}
+    - 3: {add_story(r2_3)}
+    - 4: {add_story(r2_4)}
+}
+"----------------------"
+\*Evil laugh*.
+"Incorrect answer! Now I get to choose one of your past memories."
++[Check your past] -> next2
 
 == Won2
-~win++
-You have three cards in your hand and you chose:
+"----------------------"
+"Okay, gotta admit, that was a nice answer."
+"Go ahead and select from one of these memories, and they will be yours."
 
-* 2 {set_character(2)} 
-->next2
-* 10 {set_character(10)} 
-->next2
-* 7 {set_character(7)} 
-->next2
-==function set_character(x)
-~ character = x
+The man recites four options.
+
++[{r2_1}] {add_story(r2_1)} ->next2
++[{r2_2}] {add_story(r2_2)} ->next2
++[{r2_3}] {add_story(r2_3)} ->next2
++[{r2_4}] {add_story(r2_4)} ->next2
 
 == next2
+"----------------------"
+"Okay, here you go. Here is the past that you have created so far for yourself", says the man, and then starts reciting.
+\***
+{story}
+\***
 
-{ character:
-- 2: 	You are a doctor in your late thirties.
-- 10: 	You are a lift operator.
-- 7: You are an NCSU student.
-}
-
-+[Round 3]-> Round3
+"This next is question is not easy!", says the man in a teasing tone. 
++[Next question] -> Round3
 
 
 == Round3
-// Third round 4, 5, 7, A available
+"----------------------"
+The man recites the question.
+{trivia_3}
++[{trivia_3_1}] -> Lost3
++[{trivia_3_2}] -> Won3
++[{trivia_3_3}] -> Lost3
++[{trivia_3_4}] -> Lost3
 
-{~You lost the third round. ->Lost3|You won the third round. ->Won3}
 == Lost3
-~ story_start = "{~4|5|7|A}"
+~ random_choice = RANDOM(1,3)
+{ random_choice:
+    - 1: {add_story(r3_1)}
+    - 2: {add_story(r3_2)}
+    - 3: {add_story(r3_3)}
+}
+"----------------------"
+\*Evil laugh*.
+"Incorrect answer! Now I get to choose one of your past memories."
++[Check your past] -> next3
 
-Your opponent has won, which means he gets to chose your memory. He picked {story_start} from your cards.
--> next3
 == Won3
-~win++
-You have four cards in your hand and you chose:
+"----------------------"
+"Correct. As much I hate saying it, I have got to give you credit for this!", says the man.
+"Go ahead and select from one of these memories, and they will be yours."
 
-* 4 {set_start(4)} 
-->next3
-* 5 {set_start(5)} 
-->next3
-* 7 {set_start(7)} 
-->next3
-* A {set_start("A")} 
-->next3
++[{r3_1}] {add_story(r3_1)} ->next3
++[{r3_2}] {add_story(r3_2)} ->next3
++[{r3_3}] {add_story(r3_3)} ->next3
 
-==function set_start(x)
-~ story_start = x
 == next3
+"----------------------"
+"Okay, here you go. Here is the past that you have created so far for yourself", says the man, and then starts reciting.
+\***
+{story}
+\***
 
-{ character:
-- 2: 	You are a doctor in your late thirties. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-- 10: 	You are a lift operator. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-- 7: You are an NCSU student. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-}
+"Ready for next question?", asks the man. 
++[Next question] -> Round4
 
-
-
-//+[Round 4]-> Round4
-
-+[Round 4] -> Round4_1
-
-//setting_related_choices
-== Round4_1
-// Fourth round k, 8 available
-{~You lost this round, which means your opoonents gets to chose your memory! ->Lost4_1|You won this round! ->Won4_1}
-
-== Lost4_1
-~ setting_related_choices = "{~A|J|3|6|}"
-
-He has two cards in his hand and he has chosen: {setting_related_choices}.
--> next4_1
-
-== Won4_1
-~win++
-You have four cards in your hand and you chose:
-
-* A {set_setting_related_choices("A")} 
-->next4_1
-* J {set_setting_related_choices("J")} 
-->next4_1
-* 3 {set_setting_related_choices(3)} 
-->next4_1
-* 6 {set_setting_related_choices(6)} 
-->next4_1
-
-
-==function set_setting_related_choices(x)
-~ setting_related_choices = x
-
-== next4_1
-// Narrative transition related to the selected setting
-{ character:
-- 2: 	You are a doctor in your late thirties. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-- 10: 	You are a lift operator. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": You were born in Brazil.
-    }
-- 7: You are an NCSU student. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-}
-{ setting:
-- "A": 	You developed a gambling addiction.
-- "J": 	The screen is playing Star Wars: The Phantom Menace.
-- 3: 	There was a terrorist attack in the amusement park.
-- 6: You ordered a glass of ice American and drank with relish.
-}
-+[Round 5]-> Round5
 
 == Round4
-// Fourth round k, 8 available
-
-{~You lost. ->Lost4|You won. ->Won4}
+"----------------------"
+{trivia_4}
++[{trivia_4_1}] -> Won4
++[{trivia_4_2}] -> Lost4
++[{trivia_4_3}] -> Lost4
++[{trivia_4_4}] -> Lost4
 
 == Lost4
-~ story_conflict = "{~K|8}"
+~ random_choice = RANDOM(1,3)
+{ random_choice:
+    - 1: {add_story(r4_1)}
+    - 2: {add_story(r4_2)}
+    - 3: {add_story(r4_3)}
+}
+"----------------------"
+\*Evil laugh*.
+"Incorrect answer! Now I get to choose one of your past memories."
++[Check your past] -> next4
 
-Your opponent has won, which means he gets to chose your memory. He has two cards in his hand and he has chosen: {story_conflict}.
--> next4
 == Won4
-~win++
-You have two cards in your hand and you chose:
+"----------------------"
+"Correct. I didn't expect you to know this :\\", says the man.
+"Go ahead and select from one of these memories, and they will be yours."
 
-* K {set_conflict("K")} 
-->next4
-* 8 {set_conflict(8)} 
-->next4
++[{r4_1}] {add_story(r4_1)} ->next4
++[{r4_2}] {add_story(r4_2)} ->next4
++[{r4_3}] {add_story(r4_3)} ->next4
 
-
-==function set_conflict(x)
-~ story_conflict = x
 == next4
-+[Round 5]-> Round5
+"----------------------"
+"Okay, here you go. Here is the past that you have created so far for yourself", says the man, and then starts reciting.
+\***
+{story}
+\***
+
+The man is now silent.
+
++ [Ask about the next question] -> asknext
++ [Ask for a permission to leave] -> askleave
+
+== asknext
+"Uhmm", nods the man, "I don't have any more questions left."
+The room lights up.
+The man signals towards the door asking you to leave.
+As you approach the door, he stops you for a moment.
+"Remember: you can never tell any one about this!".
 
 
-== Round5
-Congratualations! You now have your full memory!
+-> END
 
-{ character:
-- 2: 	You are a doctor in your late thirties. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-- 10: 	You are a lift operator. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": You were born in Brazil.
-    }
-- 7: You are an NCSU student. <>
-    { story_start:
-        - 4: 	 You were born in Ecuador, the youngest of 13 siblings.
-        - 5: 	You were born in Egypt, in a family of 6.
-        - 7:    You were born in New York, a secret bastard child of Donald Trump.
-        - "A": 	You were born in Brazil.
-    }
-}
-{ setting:
-- "A": 	You developed a gambling addiction.
-- "J": 	The screen is playing Star Wars: The Phantom Menace.
-- 3: 	There was a terrorist attack in the amusement park.
-- 6: You ordered a glass of ice American and drank with relish.
-}
-{ setting:
-- "A": 	You are in a casino.
-- "J": 	You are in a movie theatre.
-- 3: 	You are in an amusement park.
-- 6: You are in a coffee shop.
-}
-
-// Fifth round 2, 4, A, Q available
-//You Played the Blackjack. 
-
-//{~You lost. ->Lost5|You won. ->Won5}
-
-//== Lost5
-//~ story_end = "{~2|4|A|Q}"
-
-//Your opponent has won, which means he gets to chose your memory. He has four cards in his hand and he has chosen: {story_end}.
-//-> next5
-
-//== Won5
-//~win++
-//You have four cards in your hand and you chose:
-
-//* 2 {set_end(2)} 
-//->next5
-//* 4 {set_end(4)} 
-//->next5
-//* A {set_end("A")} 
-//->next5
-//* Q {set_end("Q")} 
-//->next5
-
-//==function set_end(x)
-//~ story_end = x
-
-//== next5
-//+[End] -> End
-
-//== End
-//You retrieve your memory:
-
-//{setting}
-//{character}
-//{story_start}
-//{story_conflict}
-//{story_end}
-
+== askleave
+"----------------------"
+"How dare you ask that question?", shouts the man.
+The man leaves with you locked in the room. 
+You stay at the same place for another eighty years, never able to leave the room, before eventually dying. 
 -> END
 
 
