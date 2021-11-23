@@ -21,6 +21,7 @@ public class StartGame : MonoBehaviour
     public GameObject logo;
     public GameObject NarativeCanvas;
     public Text contentNote;
+    public Text reference;
     public Text NarrativeText;
 
     public string[] contentList = new string[] {"The sounds of the busy street wake you up where you find yourself laying on a sidewalk.$$\"What am I doing here.\"", "A person walks up next to you and asks,$$\"Hey, buddy are you ok? What's your name, do you need me to call someone for you\"$$You realize you don't know your name. The helping pedestrian in confusion walks off."
@@ -59,6 +60,7 @@ public class StartGame : MonoBehaviour
         {
             title.gameObject.SetActive(false);
             logo.gameObject.SetActive(false);
+            reference.gameObject.SetActive(false);
             contentNote.gameObject.SetActive(true);
             start = true;
             click++;
@@ -81,7 +83,7 @@ public class StartGame : MonoBehaviour
         }else if (start2 && click == 4)
         {
             NarativeCanvas.gameObject.SetActive(false);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Rules");
           
     }
         //clicked = true;

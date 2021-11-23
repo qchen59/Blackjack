@@ -13,7 +13,7 @@ public class CardScript : MonoBehaviour
    // public int bigRound = 1;
     public string storyScript;
 
-    public Text scriptText;
+    //public Text scriptText;
     public Text popUp;
     public Text mainText;
     public Button confirm;
@@ -116,11 +116,10 @@ public class CardScript : MonoBehaviour
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
-            scriptText.gameObject.SetActive(true);
 
             mainText.text = "Card " + value + " is selected!";
             confirm.gameObject.SetActive(true);
-            scriptText.text = storyScript;
+            //scriptText.text = storyScript;
             GameObject.Find("GameManager").GetComponent<GameManager>().playerWin = false;
         }
 
@@ -130,8 +129,8 @@ public class CardScript : MonoBehaviour
     {
 /*        print(storyScript);
         print(value);*/
-        scriptText.gameObject.SetActive(true);
-        scriptText.text = storyScript;
+        //scriptText.gameObject.SetActive(true);
+        //scriptText.text = storyScript;
     }
 
 

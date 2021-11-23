@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         mainCamera.gameObject.SetActive(false);
         NarrativeCam.gameObject.SetActive(true);
         confirm.gameObject.SetActive(false);
-        narrative.GetComponent<StoryLines>().start();
+        narrative.GetComponent<StoryLines>().newRound();
     }
 
 
@@ -150,7 +150,13 @@ public class GameManager : MonoBehaviour
         // All bust
         if (playerBust && dealerBust)
         {
+            dealerWin = true;
+            hitBtn.gameObject.SetActive(false);
+            standBtn.gameObject.SetActive(false);
+            dealBtn.gameObject.SetActive(false);
+            confirm.gameObject.SetActive(true);
             mainText.text = "All Bust";
+            playerScript.RandomSelect();
         }
         // if player busts, dealer didnt, or if dealer has more points, dealer wins
         else if (playerBust || (!dealerBust && dealerScript.handValue > playerScript.handValue))
@@ -181,7 +187,13 @@ public class GameManager : MonoBehaviour
         //Check for tie, return bets
         else if (playerScript.handValue == dealerScript.handValue)
         {
+            dealerWin = true;
+            hitBtn.gameObject.SetActive(false);
+            standBtn.gameObject.SetActive(false);
+            dealBtn.gameObject.SetActive(false);
             mainText.text = "Push";
+            confirm.gameObject.SetActive(true);
+            playerScript.RandomSelect();
         }
         else
         {
@@ -191,7 +203,6 @@ public class GameManager : MonoBehaviour
         if (dealerWin)
         {
             roundOb.GetComponent<RoundNumber>().roundUp();
-
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
             dealBtn.gameObject.SetActive(false);
@@ -216,6 +227,7 @@ public class GameManager : MonoBehaviour
         if (roundOver)
         {
             roundOb.GetComponent<RoundNumber>().roundUp();
+            narrative.GetComponent<StoryLines>().resetPlayWin();
             //print("the round" + round);
             hitBtn.gameObject.SetActive(false);
             standBtn.gameObject.SetActive(false);
